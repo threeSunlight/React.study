@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>判断一个数组中是否包含某个值</title>
+</head>
+<body>
+
+    <script>
+       /*
+        *includes 判断一个数据是是否包含这个自字段和数据
+        * 入参： str(内容)， star（起始查询）
+        * 出参：  true false
+        * 使用： str.includes(str, star)
+        * 使用范围： str,array
+        * es6提供的方法
+        * */
+        /*
+        *indexOf 返回碰到第一个相同的数据下标
+        * 入参： 值
+        * 出参： 存在返回当前下标，不存在返回-1
+        * 使用： str.indexOf(1)
+        * 使用范围： str,array
+        * javascript自带的方法
+        * */
+        /*
+        *lastIndexOf 返回碰到第一个相同的数据下标
+        * 入参： 值
+        * 出参： 存在返回当前下标，不存在返回-1
+        * 使用： str.indexOf(1)
+        * 使用范围： str,array
+        * javascript自带的方法
+        * */
+        /*
+        *find 返回满足元素的第一个值，没有则返回undefined
+        * 入参： callback
+        * 出参： 存在返回碰到的第一个值，不存在返回 undefined
+        * 使用： array.find( item => item == 0)
+        * 使用范围： array,obj
+        * es6的方法
+        * */
+        //eg
+
+        let arraqwy = new Array()
+        console.log(arraqwy)
+        let stwr = new String()
+        console.log(stwr)
+        let obj = new Object()
+        console.log(obj)
+        let array = [1,2,3,4,5,1,7,7,8];
+        console.log(array.includes(10))
+        let result = array.find( item => item == 0)
+        console.log('1111',result)
+        let str = "edccrvtgtss";
+        console.log(str.indexOf('c'))
+        console.log(str.lastIndexOf('s'))
+        
+       </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+            <script src="javascripts/index.js"></script>
+            <script src="javascripts/axios.min.js"></script>
+        </head>
+        <body>
+            <span>全是天才</span>
+            <button onclick="getChangeDate()">诺</button>
+            <script>
+                function getChangeDate() {
+                    new Promise( (resolve, reject) => {
+                        console.log(resolve,reject)
+                        axios("./javascripts/json/index.json").then( res => {
+                            console.log(res)
+                            console.log(res.status)
+                            if (res.status === 200) {
+                                console.log(res.data)
+                                resolve(res.data)
+                            } else {
+                                reject(res.msg)
+                            }
+                        }).catch( e => e.error)
+                    })
+                }
+            </script>
+        </body>
+        </html>
