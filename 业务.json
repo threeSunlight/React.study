@@ -1,0 +1,285 @@
+{
+    "version": "1.4.0-alpha.3",
+    "type": "page",
+    "body": [
+        {
+            "type": "page",
+            "body": [
+                {
+                    "type": "crud",
+                    "api": "/api/business/list",
+                    "defaultParams": {
+                        "pageSize": "5"
+                    },
+                    
+                    "filter": {
+                        "mode": "horizontal",
+                        "formItemLayout": {
+                            "labelCol": {
+                                "span": 8
+                            },
+                            "wrapperCol": {
+                                "span": 16
+                            }
+                        },
+                        "controls":[],
+                        "actions": [
+                            {
+                                "type":"button",
+                                "name": "callName",
+                                "label": "新建任务表单",
+                                "level": "primary",
+                                "style":{
+                                    "float": "right"
+                                },
+                                "actionType": "dialog",
+                                "dialog": {
+                                    "title": "新建业务表单",
+                                    "maskClosable": false,
+                                    "body": [
+                                        {
+                                            "type": "form",
+                                            "api": "raw:/api/template/saveForm",
+                                            "formItemLayout": {
+                                                "labelCol": {
+                                                    "span": 6
+                                                },
+                                                "wrapperCol": {
+                                                    "span": 18
+                                                }
+                                            },
+                                            "controls": [
+                                                {
+                                                    "type": "text",
+                                                    "label": "业务模版名称",
+                                                    "placeholder": "输入模版名称，最多20个字",
+                                                    "name": "businessTemplate",
+                                                    "required": true,
+                                                    "validator": [
+                                                        {
+                                                            "rule": "maxLength:20",
+                                                            "error": "输入模版名称，最多20个字"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "text",
+                                                    "label": "账单表示",
+                                                    "placeholder": "输入账单表示，不能与其他模版标识重复",
+                                                    "name": "bill",
+                                                    "required": true,
+                                                    "validator": [
+                                                        {
+                                                            "rule": "url:/mock/validate"
+                                                        }
+                                                    ]
+                                                   
+                                                },
+                                                {
+                                                    "type": "text",
+                                                    "label": "账单负责人",
+                                                    "placeholder": "输入负责人mis号','间隔,最多支持设置三人",
+                                                    "name": "billPerson",
+                                                    "required": true,
+                                    
+                                                    "validator": [
+                                                        {
+                                                          "rule": "exp:data.billPerson.replace(/，/g,',').split(',').length <= 3",
+                                                          "error": "负责人最多设置三人"
+                                                        }
+                                                      ]
+                                                },
+                                               
+                                                {
+                                                    "type": "text",
+                                                    "label": "模版配置人员",
+                                                    "placeholder": "输入运营人mis号','间隔,最多支持设置五人",
+                                                    "name": "templatePerson",
+                                                    "required": true,
+                                                    "validator": [
+                                                        {
+                                                            "rule": "exp:data.templatePerson.replace(/，/g,',').split(',').length <= 5 ",
+                                                            "error": "负责人最多设置五人"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "textarea",
+                                                    "label": "成本预算信息",
+                                                    "placeholder": "请输入该业务放提供的成本中心,如:到家事业群_外卖事业部_产品部",
+                                                    "name": "budget",
+                                                    "required": true
+                                                   
+                                                }
+                                               
+                                            ],
+                                            "action":[
+                                                {
+                                                    "type":"submit",
+                                                    "label":"创建",
+                                                    "api":"raw:/api/template/saveForm"
+                                                },
+                                                {
+                                                    "type":"button",
+                                                    "label":"取消"
+                                                
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                           
+                        ]
+                    },
+                    "columns": [
+                        {
+                            "type": "text",
+                            "name": "businessId",
+                            "label": "业务ID"
+                        },
+
+                        {
+                            "type": "text",
+                            "name": "outboundName",
+                            "label": "外呼模版名称"
+                        },
+                        {
+                            "type": "text",
+                            "name": "billID",
+                            "label": "账单识别码"
+                        },
+                        {
+                            "type": "text",
+                            "name": "billAdmin",
+                            "label": "账单管理员"
+                        },
+                        {
+                            "type": "text",
+                            "name": "outboundPersonnel",
+                            "label": "外呼配置人员"
+                        },
+                       
+                        {
+                            "type": "operation",
+                            "label": "操作",
+                            "buttons": [
+                                {
+                                    "type": "button",
+                                    "label": "编辑",
+                                    "level": "primary",
+                                    "actionType": "dialog",
+                                    "dialog": {
+                                        "title":"编辑${id}业务表单",
+                                        "body": [
+                                            {
+                                                "type": "form",
+                                                "initApi":"raw:/api/business/info?id=$taskId",
+                                                "api": [
+                                                    {
+                                                        "url": "raw:/api/business/info?id=$taskId",
+                                                        "on": "data.taskId"
+                                                    }
+                                                ],
+                                                "formItemLayout": {
+                                                    "labelCol": {
+                                                        "span": 6
+                                                    },
+                                                    "wrapperCol": {
+                                                        "span": 18
+                                                    }
+                                                },
+                                                "controls": [
+                                                    {
+                                                        "type": "text",
+                                                        "label": "业务模版名称",
+                                                        "placeholder": "输入模版名称，最多20个字",
+                                                        "name": "phone",
+                                                        "required": true,
+                                                        "validator": [
+                                                            {
+                                                                "rule": "maxLength:20",
+                                                                "error": "输入模版名称，最多20个字"
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "type": "text",
+                                                        "label": "账单表示",
+                                                        "placeholder": "输入账单表示，不能与其他模版标识重复",
+                                                        "name": "phone",
+                                                        "required": true
+                                                       
+                                                    },
+                                                    {
+                                                        "type": "text",
+                                                        "label": "账单负责人",
+                                                        "placeholder": "输入负责人mis号,','间隔,最多支持设置三人",
+                                                        "name": "phone",
+                                                        "required": true,
+                                                        "validator": [
+                                                            {
+                                                              "rule": "exp:data.billPerson.replace(/，/g,',').split(',') <= 3",
+                                                              "error": "负责人最多设置三人"
+                                                            }
+                                                          ]
+                                                    },
+                                                    {
+                                                        "type": "text",
+                                                        "label": "模版配置人员",
+                                                        "placeholder": "输入运营人mis号,','间隔,最多支持设置五人",
+                                                        "name": "phone",
+                                                        "required": true,
+                                                        "validator": [
+                                                            {
+                                                                "rule": "exp:data.billPerson.replace(/，/g,',').split(',').length <= 5",
+                                                                "error": "最多只能输入五个人"
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "type": "textarea",
+                                                        "label": "成本预算信息",
+                                                        "placeholder": "请输入该业务放提供的成本中心,如:到家事业群_外卖事业部_产品部",
+                                                        "name": "phone",
+                                                        "required": true
+                                                       
+                                                    }
+                                                   
+                                                ],
+                                                "action":[
+                                                    {
+                                                        "type":"submit",
+                                                        "label":"创建",
+                                                        "api":"/api/business/list"
+                                                    },
+                                                    {
+                                                        "type":"button",
+                                                        "label":"取消"
+                                                    
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "label": "删除",
+                                    "type": "button",
+                                    "level": "danger",
+                                    "api": {
+                                        "url": "/mock/saveForm?id=$id",
+                                        "method": "post",
+                                        "msg": {
+                                            "success": "删除成功"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

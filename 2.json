@@ -1,0 +1,242 @@
+{
+    "version": "1.3.104",
+    "type": "page",
+    "body": [
+      {
+        "type": "form",
+        "title": "商家外呼教程",
+        "wrapWithPanel": true,
+        "api": "raw:/mock/saveForm",
+        "mode": "horizontal",
+        "controls": [
+         
+          {
+            "type": "text",
+            "label": "任务名称",
+            "name": "callName",
+            "required": true
+          },
+          {
+            "type": "select",
+            "label": "所属业务",
+            "name": "business",
+            "required": true,
+            "source": "/api/business/select/list"
+          },
+          {
+            "type": "radio",
+            "label": "外呼商家",
+            "name": "outboundBusiness",
+            "extra":"每个商家24小时内最多被外呼一次,如当日已被其他业务外呼,则可能外呼失败",
+            "required": true,
+            "options": [
+              {
+                "label": "按门店ID文件",
+                "value": 1,
+                "select": true
+              },
+              {
+                "label": "按特征档案",
+                "value": 2,
+                "complement": {
+                    "type": "form-text",
+                    "name": "请输入特征档案ID",
+                    "visibleOn": "data.outboundBusiness == 2",
+                    "extra": "仅支持输入一个特征档案ID,且包含商家数小于10万,否则可能导致外呼任务失败"
+                  }
+              }
+            ],
+
+            "compiled":[
+                
+            {
+                "type": "upload-button",
+                "label": "上传文件",
+                "name": "excel",
+                "api": "raw:/mock/upload/xlsxList",
+                "extra": "仅支持上传一个.xlsx文件,且数据不超过10万条",
+                "accept": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"     
+          },
+          {
+            "type": "button",
+            "label": "下载模板",
+            "api": "raw:/mock/upload"
+          }]
+            
+          },
+          {
+            "type": "date",
+            "name": "startTime",
+            "required": true,
+            "label": "外呼时间",
+            "format": "YYYY-MM-DD HH:mm",
+            "valueFormat": "x",
+            "extra":"如果外呼商家数较多,可能出现外呼开始时间略晚于设置时间情况.可选时间段为10:00-20:00,并避开午/晚高峰,否则可能被驳回"
+          },
+          {
+            "type": "radio",
+            "label": "外呼执行策略",
+            "name": "executionStrategy",
+            "required": true,
+            "extra":"当天未执行的任务,任务可选择取消或次日继续执行",
+            "options": [
+              {
+                "label": "剩余任务取消",
+                "value": 1,
+                "selected": true
+              },
+              {
+                "label": "剩余任务隔天继续",
+                "value": 2
+              }
+            ]
+          },
+          // 第一种方法
+          // {
+          //   "type": "static",
+          //   "label": "姓名",
+          //   "name":"callObject",
+          //   "tpl": "<ul><li>KPl联系电话 </li><li>门店接受信息电话 </li></ul>",
+          //   "container": {
+          //     "type": "button",
+          //     "label": "按钮",
+          //     "level": "link"
+          //   }
+          // },
+          //第二种方法
+          // {
+          //   "type": "static",
+          //   "label": "姓名",
+          //   "name":"callObject",
+          //   "container": [
+          //     "KPl联系电话",
+          //     "门店接受信息电话",
+          //     {
+          //       "type": "button",
+          //       "label": "按钮",
+          //       "level": "link"
+          //     }
+          //   ]
+          // },
+          //第三种方法
+                // {
+                //     "type": "checkbox",
+                //     "label": "姓名",
+                //     "name": "callObject",
+                //     "extra":"可调整外呼顺序,如无第一外呼对象信息,则联系第二外呼对象",
+                //     "required": true,
+                //     "options":[
+                //           {
+                //             "label": "KP联系电话",
+                //             "value": 1,
+                //             "selected": true
+                //           },
+                //           {
+                //             "label": "门店接受信息电话",
+                //             "value": 2,
+                //             "selected": true,
+                //             "complement": {
+                //                 "type": "button",
+                //                 "label": "上移",
+                //                 "level": "link"
+                //               }
+                //           }      
+                //     ]
+                // },
+
+                //第四种方法 需要控制写js语法
+                  {
+                    "type": "static",
+                    "label": "姓名",
+                    "name": "callObject",
+                    "extra":"可调整外呼顺序,如无第一外呼对象信息,则联系第二外呼对象",
+                    "required": true,
+                    "compiled":[
+                      { "variable": "1","name": "KP联系电话" },
+                      { "variable": "2","name": "门店接受信息电话" },
+                      
+                      {
+                        "type": "button",
+                        "label": "上移",
+                        "level": "link",
+                        "value": "!data.callObjectFalse"
+                      }
+                    ]
+                },
+              //   {
+              //     "type": "static",
+              //     "label": "姓名",
+              //     "name": "callObject",
+              //     "visibleOn": "!data.callObjectFalse",
+              //     "extra":"可调整外呼顺序,如无第一外呼对象信息,则联系第二外呼对象",
+              //     "required": true,
+              //     "compiled":[
+              //       { "variable": "1","name": "KP联系电话" },
+              //       { "variable": "2","name": "门店接受信息电话" },
+                    
+              //       {
+              //         "type": "button",
+              //         "label": "上移",
+              //         "level": "link",
+              //         "value": "!data.callObjectFalse"
+              //       }
+              //     ]
+              // },
+          {
+            "type": "radio",
+            "label": "外呼方式",
+            "name": "callWay",
+            "required": true,
+            "options": [
+              {
+                "label": "自动外呼(无交互)",
+                "value": 1,
+                "selected": true
+              },
+              {
+                "label": "Ai外呼(待开放)",
+                "disabled": "true",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "type": "radio",
+            "label": "外呼内容",
+            "name": "outboundBusinessContent",
+            "required": true,
+            "options": [
+              {
+                "label": "文字转语音",
+                "value": 1,
+                "selected": true,
+                "body": {
+                    "type": "form-textarea",
+                    "placeholder":"最多输入100字,如内容较多建议上传音频事件",
+                    "visibleOn": "data.outboundBusinessContent == 1"
+                  }
+              },
+              {
+                "label": "上传音频文件",
+                "value": 2,
+                "body":  {
+                    "type": "file",
+                    "label": "上传文件",
+                    "name": "fileName",
+                    "api": "raw:/mock/upload/mpsList",
+                    "maxSize": 2097152,
+                    "extra": "音频文件为mp3格式,最大为2MB",
+                    "maxSizeError": "音频文件为mp3格式,最大为2MB",
+                    "accept": "audio/mpeg",
+                    "visibleOn": "data.outboundBusinessContent == 2"
+                   
+                    }
+                 
+              }
+              
+            ]
+          }
+        ]
+      }
+    ]
+  }

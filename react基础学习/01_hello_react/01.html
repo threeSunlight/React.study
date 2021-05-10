@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello_react</title>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="text"></div>
+    <!-- 引进 react 核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 生成 ReactDOM 渲染页面 -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引进 babel 转换代码 -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+       let vNode = <h1>hello, react</h1>; // 渲染的是标签,如果写成字符串 会报 VNode is not defined
+                            // 所以必须写成  标签模式
+       ReactDOM.render(VNode, document.getElementById('text'));
+
+    </script>
+</body>
+</html>

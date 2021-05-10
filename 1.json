@@ -1,0 +1,929 @@
+{
+    "version": "1.4.0-alpha.3",
+    "type": "page",
+    "body": [
+        {
+            "type": "page",
+            "body": [
+                {
+                    "type": "crud",
+                    "api": "/api/business/list",
+                    "defaultParams": {
+                        "pageSize": "5"
+                    },
+                    "filter": {
+                        "mode": "horizontal",
+                        "formItemLayout": {
+                            "labelCol": {
+                                "span": 8
+                            },
+                            "wrapperCol": {
+                                "span": 16
+                            }
+                        },
+                        "controls": [
+                            [
+                                {
+                                    "label": "外呼任务名称",
+                                    "name": "callName",
+                                    "type": "text"
+                                },
+                                {
+                                    "label": "任务外呼状态",
+                                    "name": "callStatus",
+                                    "type": "select",
+                                    "options": [
+                                        {
+                                            "label": "全部",
+                                            "value": "0"
+                                        },
+                                        {
+                                            "label": "待开始",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "label": "进行中",
+                                            "value": "2"
+                                        },
+                                        {
+                                            "label": "已完成",
+                                            "value": "3"
+                                        },
+                                        {
+                                            "label": "已终止",
+                                            "value": "4"
+                                        },
+                                        {
+                                            "label": "已暂停",
+                                            "value": "5"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "select",
+                                    "label": "所属业务",
+                                    "name": "business",
+                                    "showSearch": true,
+                                    "source": "/api/business/select/list"
+                                },
+                                {
+                                    "label": "创建人",
+                                    "name": "founder",
+                                    "type": "text"
+                                }
+                            ],
+                            {
+                                "type": "range",
+                                "label": "生效日期",
+                                "formItemLayout": {
+                                    "labelCol": {
+                                        "span": 2
+                                    },
+                                    "wrapperCol": {
+                                        "span": 20
+                                    }
+                                },
+                                "name": "range",
+                                "placeholder": [
+                                    "请选择日期",
+                                    "请选择日期"
+                                ],
+                                "showTime": true,
+                                "timeDefaultValue": [
+                                    "10:00:00",
+                                    "19:59:59"
+                                ]
+                            }
+                        ],
+                        "actions": [
+                            {
+                                "type": "submit",
+                                "label": "查询"
+                            },
+                            {
+                                "type": "button",
+                                "actionType": "reset",
+                                "label": "重置"
+                            },
+                            {
+                                "label": "新建外呼任务",
+                                "type": "button",
+                                "level": "primary",
+                                "actionType": "dialog",
+                                "dialog": {
+                                    "title": [
+                                        {
+                                            "type": "wrap",
+                                            "style": {
+                                                "display": "flex",
+                                                "justifyContent": "flex-start"
+                                            },
+                                            "body": [
+                                                {
+                                                    "type": "tpl",
+                                                    "tpl": "商家外呼教程:"
+                                                },
+                                                {
+                                                    "type": "button",
+                                                    "showAsLink": true,
+                                                    "style": {
+                                                        "margin-left": "10px"
+                                                    },
+                                                    "label": "点击查看",
+                                                    "level": "link"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "maskClosable": false,
+                                    "width": "50%",
+                                    "body": [
+                                        {
+                                            "type": "form",
+                                            "formItemLayout": {
+                                                "labelCol": {
+                                                    "span": 3
+                                                },
+                                                "wrapperCol": {
+                                                    "span": 21
+                                                }
+                                            },
+                                            "api": "raw:/mock/saveForm",
+                                            "controls": [
+                                                {
+                                                    "type": "text",
+                                                    "label": "任务名称",
+                                                    "name": "callName",
+                                                    "required": true
+                                                },
+                                                {
+                                                    "type": "select",
+                                                    "label": "所属业务",
+                                                    "name": "business",
+                                                    "required": true,
+                                                    "source": "/api/business/select/list"
+                                                },
+                                                {
+                                                    "type": "grid",
+                                                    "columns": [
+                                                        {
+                                                            "span": 24,
+                                                            "children": [
+                                                                {
+                                                                    "type": "form-radio",
+                                                                    "label": "外呼商家",
+                                                                    "name": "outboundBusiness",
+                                                                    "className": "cancel-margin",
+                                                                    "extra": "<span style='color:skyblue'><svg class='icon svg-style'  viewBox='0 0 1024 1024' version='1.1'><path fill='skyblue' d='M512 85.333333c235.637333 0 426.666667 191.029333 426.666667 426.666667S747.637333 938.666667 512 938.666667 85.333333 747.637333 85.333333 512 276.362667 85.333333 512 85.333333z m0 544a42.666667 42.666667 0 1 0 0 85.333334 42.666667 42.666667 0 0 0 0-85.333334z m0-362.666666a42.666667 42.666667 0 0 0-42.666667 42.666666v234.666667a42.666667 42.666667 0 1 0 85.333334 0V309.333333a42.666667 42.666667 0 0 0-42.666667-42.666666z'/></svg>每个商家24小时内最多被外呼一次,如当日已被其他业务外呼,则可能外呼失败</span>",
+                                                                    "required": true,
+                                                                    "options": [
+                                                                        {
+                                                                            "label": "按门店ID文件",
+                                                                            "value": 1,
+                                                                            "selected": true
+                                                                        },
+                                                                        {
+                                                                            "label": "按特征档案",
+                                                                            "value": 2
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "span": 18,
+                                                            "children": [
+                                                                {
+                                                                    "type": "form-text",
+                                                                    "name": "请输入特征档案ID",
+                                                                    "visibleOn": "data.outboundBusiness == 2",
+                                                                    "extra": "仅支持输入一个特征档案ID,且包含商家数小于10万,否则可能导致外呼任务失败"
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "span": 18,
+                                                            "style": {
+                                                                "margin-bottom": "15px"
+                                                            },
+                                                            "visibleOn": "data.outboundBusiness == 1",
+                                                            "children": [
+                                                                {
+                                                                    "type": "upload-button",
+                                                                    "label": "上传文件",
+                                                                    "name": "excel",
+                                                                    "className": "upload-margin",
+                                                                    "api": "raw:/mock/upload/xlsxList",
+                                                                    "extra": "仅支持上传一个.xlsx文件,且数据不超过10万条",
+                                                                    "accept": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                                                },
+                                                                {
+                                                                    "type": "button",
+                                                                    "label": "下载模板",
+                                                                    "api": "raw:/mock/upload"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "range",
+                                                    "label": "外呼时间",
+                                                    "name": "startTime",
+                                                    "required": true,
+                                                    "format": "YYYY-MM-DD HH:mm:ss",
+                                                    "extra": "<span style='color:skyblue'><svg class='icon svg-style' width='1em' height='1em' viewBox='0 0 1024 1024' version='1.1'><path fill='skyblue' d='M512 85.333333c235.637333 0 426.666667 191.029333 426.666667 426.666667S747.637333 938.666667 512 938.666667 85.333333 747.637333 85.333333 512 276.362667 85.333333 512 85.333333z m0 544a42.666667 42.666667 0 1 0 0 85.333334 42.666667 42.666667 0 0 0 0-85.333334z m0-362.666666a42.666667 42.666667 0 0 0-42.666667 42.666666v234.666667a42.666667 42.666667 0 1 0 85.333334 0V309.333333a42.666667 42.666667 0 0 0-42.666667-42.666666z'/></svg>如果外呼商家数较多,可能出现外呼开始时间略晚于设置时间情况.可选时间段为10:00-20:00,并避开午/晚高峰,否则可能被驳回</span>",
+                                                    "placeholder": [
+                                                        "请输入开始时间",
+                                                        "请输入结束时间"
+                                                    ],
+                                                    "showTime": true,
+                                                    "minDate": "+1days",
+                                                    "timeDefaultValue": [
+                                                        "10:00:00",
+                                                        "20:00:00"
+                                                    ]
+                                                  
+                                                },
+                                                {
+                                                    "type": "radio",
+                                                    "label": "外呼执行策略",
+                                                    "name": "executionStrategy",
+                                                    "required": true,
+                                                    "extra": "<span style='color:skyblue'><svg class='icon svg-style'  viewBox='0 0 1024 1024' version='1.1'><path fill='skyblue' d='M512 85.333333c235.637333 0 426.666667 191.029333 426.666667 426.666667S747.637333 938.666667 512 938.666667 85.333333 747.637333 85.333333 512 276.362667 85.333333 512 85.333333z m0 544a42.666667 42.666667 0 1 0 0 85.333334 42.666667 42.666667 0 0 0 0-85.333334z m0-362.666666a42.666667 42.666667 0 0 0-42.666667 42.666666v234.666667a42.666667 42.666667 0 1 0 85.333334 0V309.333333a42.666667 42.666667 0 0 0-42.666667-42.666666z'/></svg>当天未执行的任务,任务可选择取消或次日继续执行</span>",
+                                                    "options": [
+                                                        {
+                                                            "label": "剩余任务取消",
+                                                            "value": 1,
+                                                            "selected": true
+                                                        },
+                                                        {
+                                                            "label": "剩余任务隔天继续",
+                                                            "disabled": "true",
+                                                            "value": 2
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "grid",
+                                                    "layout": "flex",
+                                                    "justify": "start",
+                                                    "align": "top",
+                                                    "columns": [
+                                                        {
+                                                            "span": 3,
+                                                            "children": [
+                                                                {
+                                                                    "type": "form-static",
+                                                                    "label": "外呼对象",
+                                                                    "extra": "<span style='color:skyblue'><svg class='icon svg-style'  viewBox='0 0 1024 1024' version='1.1'><path fill='skyblue' d='M512 85.333333c235.637333 0 426.666667 191.029333 426.666667 426.666667S747.637333 938.666667 512 938.666667 85.333333 747.637333 85.333333 512 276.362667 85.333333 512 85.333333z m0 544a42.666667 42.666667 0 1 0 0 85.333334 42.666667 42.666667 0 0 0 0-85.333334z m0-362.666666a42.666667 42.666667 0 0 0-42.666667 42.666666v234.666667a42.666667 42.666667 0 1 0 85.333334 0V309.333333a42.666667 42.666667 0 0 0-42.666667-42.666666z'/></svg>可调整外呼顺序,任务可选择取消或者次日继续执行</span>",
+                                                                    "tpl": "<span></span>",
+                                                                    "required": true,
+                                                                    "formItemLayout": {
+                                                                        "labelCol": {
+                                                                            "span": 23
+                                                                        },
+                                                                        "wrapperCol": {
+                                                                            "span": 1
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "span": 21,
+                                                            "className": "jindu-wrap",
+                                                            "visibleOn": "!data.moveUp",
+                                                            "children": [
+                                                                {
+                                                                    "type": "tpl",
+                                                                    "name": "1",
+                                                                    "tpl": "<span>KP联系电话</span>"
+                                                                },
+                                                                {
+                                                                    "type": "grid",
+                                                                    "columns": [
+                                                                        {
+                                                                            "span": 4,
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "tpl",
+                                                                                    "name": "2",
+                                                                                    "tpl": "<span>门店接受信息电话</span>"
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "span": 20,
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "button",
+                                                                                    "level": "link",
+                                                                                    "actionType": "eval",
+                                                                                    "eval": "data.moveUp =  'false'",
+                                                                                    "label": "上移"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "span": 21,
+                                                            "className": "jindu-wrap",
+                                                            "visibleOn": "!!data.moveUp",
+                                                            "children": [
+                                                                {
+                                                                    "type": "tpl",
+                                                                    "name": "2",
+                                                                    "tpl": "<span>门店接受信息电话</span>"
+                                                                },
+                                                                {
+                                                                    "type": "grid",
+                                                                    "columns": [
+                                                                        {
+                                                                            "span": 4,
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "tpl",
+                                                                                    "name": "1",
+                                                                                    "tpl": "<span>KP联系电话</span>"
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "span": 20,
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "button",
+                                                                                    "level": "link",
+                                                                                    "actionType": "eval",
+                                                                                    "eval": "data.moveUp = 'true'",
+                                                                                    "label": "上移"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "text",
+                                                    "name": "moveUp",
+                                                    "label": "测试"
+                                                },
+                                                {
+                                                    "type": "radio",
+                                                    "label": "外呼方式",
+                                                    "name": "callWay",
+                                                    "required": true,
+                                                    "options": [
+                                                        {
+                                                            "label": "自动外呼(无交互)",
+                                                            "value": 1,
+                                                            "selected": true
+                                                        },
+                                                        {
+                                                            "label": "Ai外呼(待开放)",
+                                                            "disabled": "true",
+                                                            "value": 2
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "grid",
+                                                    "columns": [
+                                                        {
+                                                            "span": 24,
+                                                            "children": [
+                                                                {
+                                                                    "type": "form-radio",
+                                                                    "label": "外呼内容",
+                                                                    "name": "outboundBusinessContent",
+                                                                    "className": "cancel-margin",
+                                                                    "required": true,
+                                                                    "options": [
+                                                                        {
+                                                                            "label": "文字转语音",
+                                                                            "value": 1,
+                                                                            "selected": true
+                                                                        },
+                                                                        {
+                                                                            "label": "上传音频文件",
+                                                                            "value": 2
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "span": 18,
+                                                            "visibleOn": "data.outboundBusinessContent == 1",
+                                                            "children": [
+                                                                {
+                                                                    "type": "form-textarea",
+                                                                    "maxLength": 100,
+                                                                    "extra": "最多输入100字,如内容较多建议上传音频事件(到达100字,不能在进行输入)"
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "span": 18,
+                                                            "visibleOn": "data.outboundBusinessContent == 2",
+                                                            "children": [
+                                                                {
+                                                                    "type": "upload-button",
+                                                                    "label": "上传音频文件(2MB大小)",
+                                                                    "name": "123",
+                                                                    "api": "/mock/upload",
+                                                                    "maxSize": 2097152,
+                                                                    "maxSizeError": "音频文件为mp3格式,最大为2MB",
+                                                                    "accept": "audio/mpeg"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "actions": [
+                                        {
+                                            "type": "button",
+                                            "className": "m-r-md",
+                                            "actionType": "submit",
+                                            "level": "primary",
+                                            "label": "提交"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "actionType": "cancel",
+                                            "label": "取消"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "columns": [
+                        {
+                            "type": "text",
+                            "name": "taskId",
+                            "label": "任务ID"
+                        },
+                        {
+                            "type": "text",
+                            "name": "callName",
+                            "label": "外呼任务名称"
+                        },
+                        {
+                            "type": "text",
+                            "name": "business",
+                            "label": "所属业务"
+                        },
+                        {
+                            "type": "map",
+                            "name": "approvalStatus",
+                            "label": "审核状态",
+                            "map": {
+                                "1": "待审核",
+                                "2": "审核通过",
+                                "3": "审核驳回"
+                            }
+                        },
+                        {
+                            "type": "map",
+                            "name": "taskStatus",
+                            "label": "任务外呼状态",
+                            "map": {
+                                "1": "待开始",
+                                "2": "进行中",
+                                "3": "已完成",
+                                "4": "已终止",
+                                "5": "已暂停"
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "startTime",
+                            "label": "开始时间"
+                        },
+                        {
+                            "type": "text",
+                            "name": "founder",
+                            "label": "创建人"
+                        },
+                        {
+                            "type": "text",
+                            "name": "createTime",
+                            "label": "创建时间"
+                        },
+                        {
+                            "type": "text",
+                            "name": "updateTime",
+                            "label": "更新时间"
+                        },
+                        {
+                            "type": "text",
+                            "name": "numberMerchants",
+                            "label": "被呼商家数"
+                        },
+                        {
+                            "type": "text",
+                            "name": "numberCall",
+                            "label": "接通商家数"
+                        },
+                        {
+                            "type": "operation",
+                            "label": "操作",
+                            "buttons": [
+                                {
+                                    "label": "详情",
+                                    "type": "button",
+                                    "level": "primary",
+                                    "actionType": "dialog",
+                                    "dialog": {
+                                        "title": "",
+                                        "maskClosable": false,
+                                        "width": "50%",
+                                        "body": [
+                                            {
+                                                "type": "tab",
+                                                "tabs": [
+                                                    {
+                                                        "title": "任务详情",
+                                                        "tab": [
+                                                            {
+                                                                "type": "page",
+                                                                "body": [
+                                                                    {
+                                                                        "type": "service",
+                                                                        "initApi": "raw:/api/business/info?id=$taskId?",
+                                                                        "api": [
+                                                                            {
+                                                                                "url": "raw:/api/business/info?id=$taskId",
+                                                                                "on": "data.taskId"
+                                                                            }
+                                                                        ],
+                                                                        "body": [
+                                                                            {
+                                                                                "type": "grid",
+                                                                                "columns": [
+                                                                                    {
+                                                                                        "span": 12,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>任务名称</span> <span>${callName}</span></div>"
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 12,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>所属业务</span> <span>${business}</span> </div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 12,
+                                                                                        "className": "first-line inline-div",
+                                                                                        "children": [
+                                                                                            {
+                                                                                                "type": "tpl",
+                                                                                                "style": {
+                                                                                                    "display": "inline"
+                                                                                                },
+                                                                                                "tpl": "<div style='margin: 20px;display:inline'><span style='padding: 20px; font-weight: 600;'>外呼商家</span> <span>${outboundBusiness}</span> </div> "
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "button",
+                                                                                                "level": "link",
+                                                                                                "style": {
+                                                                                                    "display": "inline"
+                                                                                                },
+                                                                                                "actionType": "ajax",
+                                                                                                "api": {
+                                                                                                    "url": "raw:/mock/saveForm",
+                                                                                                    "method": "post"
+                                                                                                },
+                                                                                                "label": "下载商家ID"
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 12,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>创建人</span> <span>${founder}</span></div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 12,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>设置开始时间</span> <span>${startTime}</span></div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 12,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>创建时间</span><span> ${createTime}</span> </div>"
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 12,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>任务状态</span><span>${taskStatus}</span> </div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 12,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>首次执行时间 </span><span>${firstExecutionTime}</span></div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 24,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>外呼类型 </span><span>${callType}</span></div>"
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 24,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>内容来源 </span><span>${callSource}</span></div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 24,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>外呼内容</span><span>${callContent}</span> </div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 4,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 11px; font-weight: 600;'>外呼总个数</span><span>${callTotalNumber}</span> </div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 5,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>外呼完成个数</span><span>${callFinishNumber}</span> </div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 4,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>执行中个数</span><span>${executionNumber}</span> </div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 4,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>未执行个数</span><span>${isExecutionNumber}</span> </div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 5,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>外呼异常个数</span><span>${callErrorNumber}</span> </div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 12,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>接通个数</span> <span>${connectionsNumber}</span></div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 12,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>接通率 </span><span>${connectRate}</span></div> "
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "span": 24,
+                                                                                        "children": {
+                                                                                            "type": "tpl",
+                                                                                            "className": "first-line",
+                                                                                            "tpl": "<div style='margin: 20px'><span style='padding: 20px; font-weight: 600;'>平均通话时长</span> <span>${callDuration}</span></div> "
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "title": "数据记录",
+                                                        "tab": [
+                                                            {
+                                                                "type": "page",
+                                                                "body": [
+                                                                    {
+                                                                        "type": "button",
+                                                                        "level": "link",
+                                                                        "style": {
+                                                                            "float": "right",
+                                                                            "margin-bottom": "15px"
+                                                                        },
+                                                                        "label": "下载"
+                                                                    },
+                                                                    {
+                                                                        "type": "crud",
+                                                                        "api": [
+                                                                            {
+                                                                                "url": "raw:/api/recording/list?id=$taskId",
+                                                                                "on": "data.taskId"
+                                                                            }
+                                                                        ],
+                                                                        "defaultParams": {
+                                                                            "pageSize": "5"
+                                                                        },
+                                                                        "columns": [
+                                                                            {
+                                                                                "type": "text",
+                                                                                "name": "businessID",
+                                                                                "label": "商家ID"
+                                                                            },
+                                                                            {
+                                                                                "type": "text",
+                                                                                "name": "storeName",
+                                                                                "label": "门店名称"
+                                                                            },
+                                                                            {
+                                                                                "type": "text",
+                                                                                "name": "callName",
+                                                                                "label": "外呼对象"
+                                                                            },
+                                                                            {
+                                                                                "type": "text",
+                                                                                "name": "callStatus",
+                                                                                "label": "外呼状态"
+                                                                            },
+                                                                            {
+                                                                                "type": "text",
+                                                                                "name": "callResult",
+                                                                                "label": "外呼结果"
+                                                                            },
+                                                                            {
+                                                                                "type": "text",
+                                                                                "name": " callStartTime",
+                                                                                "label": "外呼开始时间"
+                                                                            },
+                                                                            {
+                                                                                "type": "text",
+                                                                                "name": "callEndTime",
+                                                                                "label": "外呼结束时间"
+                                                                            },
+                                                                            {
+                                                                                "type": "text",
+                                                                                "name": "ringingTime",
+                                                                                "label": "振铃时长"
+                                                                            },
+                                                                            {
+                                                                                "type": "text",
+                                                                                "name": "callTime",
+                                                                                "label": " 通话时长"
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "actions": []
+                                    }
+                                },
+                                {
+                                    "type": "button",
+                                    "label": "测试",
+                                    "level": "default",
+                                    "actionType": "dialog",
+                                    "dialog": {
+                                        "title": "请输入电话号码",
+                                        "maskClosable": false,
+                                        "body": [
+                                            {
+                                                "type": "form",
+                                                "api": "/api/call/demo",
+                                                "formItemLayout": {
+                                                    "labelCol": {
+                                                        "span": 6
+                                                    },
+                                                    "wrapperCol": {
+                                                        "span": 18
+                                                    }
+                                                },
+                                                "controls": [
+                                                    {
+                                                        "type": "text",
+                                                        "label": "请输入手机号",
+                                                        "name": "phone",
+                                                        "required": true,
+                                                        "validator": [
+                                                            {
+                                                                "rule": "tel",
+                                                                "error": "请输入正确的手机号"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "label": "暂停",
+                                    "type": "button",
+                                    "level": "primary",
+                                    "actionType": "ajax",
+                                    "api": {
+                                        "url": "/mock/saveForm?id=$id",
+                                        "method": "post",
+                                        "msg": {
+                                            "success": "操作成功"
+                                        }
+                                    },
+                                    "visibleOn": "data.approvalStatus == '2' && data.taskStatus !== '3' && data.taskStatus !== '4'",
+                                    "hideOn": "data.taskStatus == '5'"
+                                },
+                                {
+                                    "label": "继续",
+                                    "type": "button",
+                                    "actionType": "ajax",
+                                    "level": "primary",
+                                    "api": {
+                                        "url": "/mock/saveForm?id=$id",
+                                        "method": "post",
+                                        "msg": {
+                                            "success": "操作成功"
+                                        }
+                                    },
+                                    "visibleOn": "data.taskStatus == '5'"
+                                },
+                                {
+                                    "label": "终止",
+                                    "type": "button",
+                                    "actionType": "ajax",
+                                    "level": "danger",
+                                    "api": {
+                                        "url": "/mock/saveForm?id=$id",
+                                        "method": "post",
+                                        "msg": {
+                                            "success": "操作成功"
+                                        }
+                                    },
+                                    "visibleOn": "data.approvalStatus == '2' && data.taskStatus !== '3' && data.taskStatus !== '4'"
+                                }
+                            ]
+                        },
+                        // {
+                        //     "type": "tpl",
+                        //     "tpl": "\n                <div style='color:#999;margin-top:20px'>\n                    注释：需要在系统设置中设置<a target='_blank' href='/doc/high-guide#函数定义'>函数定义</a>，内容包括如下：\n                    <pre>exports.getUserSchema = function (data) {\n    if (!data.moveUp) {\n        return data.moveUp = false } \n    return data.moveUp = true;\n};</pre>    </div>\n            "
+                        // }
+                    ]
+                }
+            ]
+        }
+    ]
+}
