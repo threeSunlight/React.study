@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+
+    	<!-- 引入react核心库 -->
+	<script type="text/javascript" src="../js/react.development.js"></script>
+	<!-- 引入react-dom，用于支持react操作DOM -->
+	<script type="text/javascript" src="../js/react-dom.development.js"></script>
+	<!-- 引入babel，用于将jsx转为js -->
+	<script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+       
+       let data = [{
+           'value':'accommodate',
+           "name": '使适用,适符合一致'
+       },
+    {
+        'name':'陪伴,伴随',
+        "value": 'accompany'
+    },
+    {
+        'name': '达到,完成',
+        'value': 'accomplish'
+    }];
+    //设置标签渲染
+    let Dom = (
+        <div>
+            <h2>猛猛干</h2>    
+            <ul>
+                {
+                    data.map( (item,index) => {
+                        return <li key="item.value">{ item.name }</li>
+                    })
+                }
+            </ul>
+        </div>
+    );
+    ReactDOM.render(Dom,document.getElementById('test'));
+    </script>
+</body>
+</html>

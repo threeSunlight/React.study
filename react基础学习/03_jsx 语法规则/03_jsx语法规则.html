@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsx语法规则</title>
+</head>
+<body>
+    <!-- 创建一个容器 -->
+    <div id="text"></div>
+    	<!-- 引入react核心库 -->
+	<script type="text/javascript" src="../js/react.development.js"></script>
+	<!-- 引入react-dom，用于支持react操作DOM -->
+	<script type="text/javascript" src="../js/react-dom.development.js"></script>
+	<!-- 引入babel，用于将jsx转为js -->
+	<script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+       let meId = 'accommodate';
+       let meText = '使符合一致的';
+
+       //完成标签
+       let Dom = (
+           <div>
+              <h2 className="title" id={ meId }>
+                    <span style={{ 'fontSize' : '20px', 'color': 'red' }}>{ meText }</span>
+              </h2> 
+              <h2 className="title" id={ meId }>
+                    <span style={{ 'fontSize' : '22px', 'color': 'blue' }}>{ meText }</span>
+              </h2> 
+          </div>
+       );
+
+
+        /*
+        JSX 语法规则
+          1.定义虚拟 DOM 时,不要写引号,
+          2,标签中汇入 js 表达式时要用{},
+          3.样式的类名制定不要用 class,要用 className.
+          4.内联样式,要用 style={{  }}的形式来进行写
+          5.只有一个根标签
+          6.标签必须闭合
+          7.标签首字母
+            (1).若小写字母开头,则改标签转为 html中同名元素, 若 html 中无该标签对应的同名元素,
+            (2).若大写字母开头, react 就去渲染对应名称的组件,若组件没有定义,则报错
+        **/
+       //进行渲染标签
+       ReactDOM.render(Dom, document.getElementById('text'));
+    </script>
+</body>
+</html>
